@@ -5,10 +5,7 @@ import os
 import numpy as numpy
 import pandas as pd
 
-
-
 app = Flask(__name__)
-
 
 DIR_PATH =  os.getcwd()
 DATA_PATH = os.path.join(DIR_PATH + os.sep, "data")
@@ -26,16 +23,16 @@ def graphs():
     y2 = [50, 30, 20, 10, 50]
     x3 = [0, 1, 2, 3, 4]
     y3 = [0, 30, 10, 5, 30]
- 
+
     graph1_url = build_graph(x1,y1)
     graph2_url = build_graph(x2,y2)
     graph3_url = build_graph(x3,y3)
- 
+
     return render_template('graphs.html',
     graph1=graph1_url,
     graph2=graph2_url,
     graph3=graph3_url)
- 
+
 if __name__ == '__main__':
     app.debug = True
     app.run()
