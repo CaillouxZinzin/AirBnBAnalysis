@@ -1,1 +1,12 @@
-AirbnbAnalysis/data/France
+AirbnbAnalysis/data/France/Paris/reviewsp.csv
+AirbnbAnalysis/data/France/Paris/calendar.csv
+AirbnbAnalysis/data/France/Paris/listings.csv
+AirbnbAnalysis/data/France/Paris/reviews.csv
+
+AirbnbAnalysis/data/France/Lyon/reviews.csv
+AirbnbAnalysis/data/France/Lyon/calendar.csv
+AirbnbAnalysis/data/France/Lyon/listings.csv
+
+AirbnbAnalysis/data/France/Bordeaux/reviews.csv
+AirbnbAnalysis/data/France/Bordeaux/reviews.csv
+AirbnbAnalysis/data/France/Bordeaux/reviews.csv
