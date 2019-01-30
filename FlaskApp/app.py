@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from graph import build_graph, build_hist_paris
+from graph import *
 import sys
 import os
 import numpy as numpy
@@ -24,8 +24,8 @@ def graphs():
     paris_listings = pd.read_csv(PARIS_PATH+"clean_paris_listing.csv", low_memory=False)
     paris_reviews = pd.read_csv(PARIS_PATH+"year_reviews.csv", low_memory=False)
 
-    paris_listings.price = [x.strip('$') for x in paris_listings.price]
-    paris_listings.price = paris_listings.price.apply(lambda x: x.replace(',',''))
+    #paris_listings.price = [x.strip('$') for x in paris_listings.price]
+    #paris_listings.price = paris_listings.price.apply(lambda x: x.replace(',',''))
 
     paris_listings["price"] = pd.to_numeric(paris_listings["price"])
     mean_price_paris = paris_listings.price.mean()
@@ -64,3 +64,29 @@ def graphs():
         paris_reviews_plot= paris_reviews_plot,
         debug= 'debug'
     )
+
+@app.route('/compare')
+def compare():
+    bdx_listings = pd.read_csv(BDX_PATH+"clean_bdx_listing.csv", low_memory=False)
+    lyon_listings = pd.read_csv(LYON_PATH+"clean_lyon_listing.csv", low_memory=False)
+    paris_listings = pd.read_csv(PARIS_PATH+"clean_paris_listing.csv", low_memory=False)
+
+    #bdx_listings.price = [x.strip('$') for x in bdx_listings.price]
+    #bdx_listings.price = bdx_listings.price.apply(lambda x: x.replace(',',''))
+    bdx_listings["price"] = pd.to_numeric(bdx_listings["price"])
+    
+    #lyon_listings.price = [x.strip('$') for x in lyon_listings.price]
+    #lyon_listings.price = lyon_listings.price.apply(lambda x: x.replace(',',''))
+    lyon_listings["price"] = pd.to_numeric(lyon_listings["price"])
+    
+    #paris_listings.price = [x.strip('$') for x in paris_listings.price]
+    #paris_listings.price = paris_listings.price.apply(lambda x: x.replace(',',''))
+    paris_listings["price"] = pd.to_numeric(paris_listings["price"])
+
+    paris_bdx_lyon_compare_hist = build_hist_compare_3(paris_listings["price"], lyon_listings["price"], bdx_listings["price"])
+    bdx_lyon_compare_hist = build_hist_compare_2(lyon_listings["price"], bdx_listings["price"])
+
+
+    return render_template('compare.html',
+    paris_bdx_lyon_compare_hist= paris_bdx_lyon_compare_hist,
+    bdx_lyon_compare_hist= bdx_lyon_compare_hist)
