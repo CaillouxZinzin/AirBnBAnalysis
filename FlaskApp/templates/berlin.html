@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <title>Berlin</title>
+    <body>
+        <div>Moyenne des prix à Berlin : {{ mean_price_berlin }}€/nuit</div>
+        <div><img src='{{ hist_berlin }}'></div>
+        <div>
+            Nombre total de logements dont les données ont été traitées : {{ total_houses_berlin }}<br/>
+            Avec {{ berlin_total_private_room }} chambres privées soit {{ berlin_percentage_private_room }}%<br/>
+            et {{ berlin_total_entire_house }} maisons complètes soit {{ berlin_percentage_entire_house }}%<br/>
+        </div>
+        <div>
+            <br/>
+            Moyenne des prix pour des chambres privées : {{ berlin_private_room_mean_price }}€<br/>
+            Moyenne des prix pour des maisons entières : {{ berlin_entire_house_mean_price }}€
+        </div>
+        <div>
+            debug = {{ debug }}
+            <img src="{{ berlin_reviews_plot }}">
+        </div>
+        <div>
+          Top 10
+          <img src="{{ berlin_top_10 }}">
+        </div>
+    </body>
+</html>

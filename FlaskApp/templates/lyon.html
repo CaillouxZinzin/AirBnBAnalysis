@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <title>lyon</title>
+    <body>
+        <div>Moyenne des prix à lyon : {{ mean_price_lyon }}€/nuit</div>
+        <div><img src='{{ hist_lyon }}'></div>
+        <div>
+            Nombre total de logements dont les données ont été traitées : {{ total_houses_lyon }}<br/>
+            Avec {{ lyon_total_private_room }} chambres privées soit {{ lyon_percentage_private_room }}%<br/>
+            et {{ lyon_total_entire_house }} maisons complètes soit {{ lyon_percentage_entire_house }}%<br/>
+        </div>
+        <div>
+            <br/>
+            Moyenne des prix pour des chambres privées : {{ lyon_private_room_mean_price }}€<br/>
+            Moyenne des prix pour des maisons entières : {{ lyon_entire_house_mean_price }}€
+        </div>
+        <div>
+            debug = {{ debug }}
+            <img src="{{ lyon_reviews_plot }}">
+        </div>
+    </body>
+</html>
