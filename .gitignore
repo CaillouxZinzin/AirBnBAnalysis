@@ -10,3 +10,5 @@ AirbnbAnalysis/data/France/Lyon/listings.csv
 AirbnbAnalysis/data/France/Bordeaux/reviews.csv
 AirbnbAnalysis/data/France/Bordeaux/calendar.csv
 AirbnbAnalysis/data/France/Bordeaux/listings.csv
+
+.DS_STORE
