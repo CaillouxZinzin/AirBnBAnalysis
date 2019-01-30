@@ -31,7 +31,7 @@ def graphsParis():
     mean_price_paris = paris_listings.price.mean()
 
     price_paris = paris_listings['price']
-    hist_paris = build_hist_paris(price_paris)
+    hist_paris = build_hist(price_paris)
 
     total_houses_paris = len(paris_listings)
 
@@ -73,7 +73,7 @@ def graphsBerlin():
     mean_price_berlin = berlin_listings.price.mean()
 
     price_berlin = berlin_listings['price']
-    hist_berlin = build_hist_paris(price_berlin)
+    hist_berlin = build_hist(price_berlin)
 
     total_houses_berlin = len(berlin_listings)
 
@@ -121,7 +121,7 @@ def graphsLyon():
     mean_price_lyon = lyon_listings.price.mean()
 
     price_lyon = lyon_listings['price']
-    hist_lyon = build_hist_paris(price_lyon)
+    hist_lyon = build_hist(price_lyon)
 
     total_houses_lyon = len(lyon_listings)
 
@@ -169,7 +169,7 @@ def graphsBordeaux():
     mean_price_bdx = bdx_listings.price.mean()
 
     price_bdx = bdx_listings['price']
-    hist_bdx = build_hist_paris(price_bdx)
+    hist_bdx = build_hist(price_bdx)
 
     total_houses_bdx = len(bdx_listings)
 
@@ -228,9 +228,9 @@ def compare():
 
     berlin_listings["price"] = pd.to_numeric(berlin_listings["price"])
 
-    paris_bdx_lyon_compare_hist = build_hist_compare_3(paris_listings["price"], lyon_listings["price"], bdx_listings["price"])
-    bdx_lyon_compare_hist = build_hist_compare_2(lyon_listings["price"], bdx_listings["price"], "lyon", "bordeaux")
-    paris_berlin_compare_hist = build_hist_compare_2(paris_listings["price"], berlin_listings["price"], "paris", "berlin")
+    paris_bdx_lyon_compare_hist = build_hist_compare_3(paris_listings["price"], lyon_listings["price"], bdx_listings["price"], "Paris", "Lyon", "Bordeaux")
+    bdx_lyon_compare_hist = build_hist_compare_2(lyon_listings["price"], bdx_listings["price"], "Lyon", "Bordeaux")
+    paris_berlin_compare_hist = build_hist_compare_2(paris_listings["price"], berlin_listings["price"], "Paris", "Berlin")
 
 
     return render_template('compare.html',
