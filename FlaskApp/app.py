@@ -1,11 +1,15 @@
 from flask import Flask, render_template
-from graph import build_graph
+from graph import build_graph, build_hist_paris
 import sys
 import os
 import numpy as numpy
 import pandas as pd
+import matplotlib.pyplot as plt
+
+
 
 app = Flask(__name__)
+
 
 DIR_PATH =  os.getcwd()
 DATA_PATH = os.path.join(DIR_PATH + os.sep, "data")
@@ -16,22 +20,47 @@ BDX_PATH = os.path.join(FRANCE_PATH + os.sep, "Bordeaux" + os.sep)
 
 @app.route('/')
 def graphs():
-    #These coordinates could be stored in DB
-    x1 = [0, 1, 2, 3, 4]
-    y1 = [10, 30, 40, 5, 50]
-    x2 = [0, 1, 2, 3, 4]
-    y2 = [50, 30, 20, 10, 50]
-    x3 = [0, 1, 2, 3, 4]
-    y3 = [0, 30, 10, 5, 30]
 
-    graph1_url = build_graph(x1,y1)
-    graph2_url = hist_paris_price('price per day $', 20)
+    paris_listings = pd.read_csv(PARIS_PATH+"clean_paris_listing.csv", low_memory=False)
+    paris_reviews = pd.read_csv(PARIS_PATH+"year_reviews.csv", low_memory=False)
 
-    return render_template('graphs.html',
-    graph1=graph1_url,
-    graph2=graph2_url,
-    graph3=graph3_url)
+    paris_listings.price = [x.strip('$') for x in paris_listings.price]
+    paris_listings.price = paris_listings.price.apply(lambda x: x.replace(',',''))
 
-if __name__ == '__main__':
-    app.debug = True
-    app.run()
+    paris_listings["price"] = pd.to_numeric(paris_listings["price"])
+    mean_price_paris = paris_listings.price.mean()
+
+    price_paris = paris_listings['price']
+    hist_paris = build_hist_paris(price_paris)
+
+    total_houses_paris = len(paris_listings)
+
+    #type of room
+
+    paris_room = paris_listings
+    paris_entire_house = paris_room.loc[paris_room['room_type'] == "Entire home/apt"]
+    paris_private_room = paris_room.loc[paris_room['room_type'] == "Private room"]
+    paris_total_private_room = len(paris_private_room)
+    paris_total_entire_house = len(paris_entire_house)
+    paris_percentage_entire_house = (paris_total_entire_house/total_houses_paris)*100
+    paris_percentage_private_room = (paris_total_private_room/total_houses_paris)*100
+
+    paris_reviews_date = [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018]
+    paris_reviews_number = [10, 508, 2217, 7617, 21317, 53060, 118278, 185578, 293940, 420842]
+
+    paris_reviews_plot = build_graph(paris_reviews_date, paris_reviews_number)
+
+
+    return render_template('graphs.html', 
+        mean_price_paris= round(mean_price_paris,2), 
+        hist_paris=hist_paris,
+        total_houses_paris= total_houses_paris,
+        paris_total_private_room= paris_total_private_room,
+        paris_total_entire_house= paris_total_entire_house,
+        paris_percentage_entire_house= round(paris_percentage_entire_house,3),
+        paris_percentage_private_room= round(paris_percentage_private_room,3),
+        paris_private_room_mean_price= round(paris_private_room.price.mean(), 2),
+        paris_entire_house_mean_price= round(paris_entire_house.price.mean(), 2),
+        paris_reviews_plot= paris_reviews_plot,
+        debug= 'debug'
+    )
