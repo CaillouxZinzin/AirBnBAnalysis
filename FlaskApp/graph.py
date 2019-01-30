@@ -5,7 +5,7 @@ import sys
 import os
 import numpy as np
 import pandas as pd
- 
+
 def build_graph(x_coordinates, y_coordinates):
     img = io.BytesIO()
     plt.plot(x_coordinates, y_coordinates)
@@ -61,7 +61,7 @@ def build_hist_compare_3(x1, x2, x3):
     plt.close()
     return 'data:image/png;base64,{}'.format(hist_url)
 
-def build_hist_compare_2(x1, x2):
+def build_hist_compare_2(x1, x2, ville1, ville2):
     img = io.BytesIO()
     fig, ax = plt.subplots(figsize=(9, 5))
     bins = np.arange(0,300,25)
@@ -73,8 +73,8 @@ def build_hist_compare_2(x1, x2):
     ax.set_xticklabels(xlabels)
 
     colors = ['#E69F00', '#56B4E9']
-    names = ['Lyon', 'Bordeaux']
-            
+    names = [ville1, ville2]
+
     # Make the histogram using a list of lists
     # Normalize the flights and assign colors and names
     plt.hist([x1, x2], bins = bins,

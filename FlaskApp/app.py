@@ -212,6 +212,7 @@ def compare():
     bdx_listings = pd.read_csv(BDX_PATH+"clean_bdx_listing.csv", low_memory=False)
     lyon_listings = pd.read_csv(LYON_PATH+"clean_lyon_listing.csv", low_memory=False)
     paris_listings = pd.read_csv(PARIS_PATH+"clean_paris_listing.csv", low_memory=False)
+    berlin_listings = pd.read_csv(BRL_PATH+"clean_listing.csv", low_memory=False)
 
     #bdx_listings.price = [x.strip('$') for x in bdx_listings.price]
     #bdx_listings.price = bdx_listings.price.apply(lambda x: x.replace(',',''))
@@ -225,13 +226,18 @@ def compare():
     #paris_listings.price = paris_listings.price.apply(lambda x: x.replace(',',''))
     paris_listings["price"] = pd.to_numeric(paris_listings["price"])
 
+    berlin_listings["price"] = pd.to_numeric(berlin_listings["price"])
+
     paris_bdx_lyon_compare_hist = build_hist_compare_3(paris_listings["price"], lyon_listings["price"], bdx_listings["price"])
-    bdx_lyon_compare_hist = build_hist_compare_2(lyon_listings["price"], bdx_listings["price"])
+    bdx_lyon_compare_hist = build_hist_compare_2(lyon_listings["price"], bdx_listings["price"], "lyon", "bordeaux")
+    paris_berlin_compare_hist = build_hist_compare_2(paris_listings["price"], berlin_listings["price"], "paris", "berlin")
 
 
     return render_template('compare.html',
     paris_bdx_lyon_compare_hist= paris_bdx_lyon_compare_hist,
-    bdx_lyon_compare_hist= bdx_lyon_compare_hist)
+    bdx_lyon_compare_hist= bdx_lyon_compare_hist,
+    paris_berlin_compare_hist=paris_berlin_compare_hist
+    )
 
 if __name__ == '__main__':
     app.run(debug=True)
