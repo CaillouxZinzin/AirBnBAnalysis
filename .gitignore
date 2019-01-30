@@ -12,3 +12,5 @@ AirbnbAnalysis/data/France/Bordeaux/calendar.csv
 AirbnbAnalysis/data/France/Bordeaux/listings.csv
 
 AirbnbAnalysis/.ipynb_checkpoints/
+
+.DS_Store

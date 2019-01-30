@@ -25,8 +25,7 @@ def graphs():
     y3 = [0, 30, 10, 5, 30]
 
     graph1_url = build_graph(x1,y1)
-    graph2_url = build_graph(x2,y2)
-    graph3_url = build_graph(x3,y3)
+    graph2_url = hist_paris_price('price per day $', 20)
 
     return render_template('graphs.html',
     graph1=graph1_url,
