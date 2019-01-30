@@ -19,7 +19,7 @@ BRL_PATH = os.path.join(WRLD_PATH + os.sep, "Berlin" + os.sep)
 
 @app.route('/')
 def hello():
-    return "Hello"
+    return render_template("home.html")
 
 @app.route('/paris')
 def graphsParis():
