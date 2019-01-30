@@ -1,18 +1,11 @@
 import matplotlib.pyplot as plt
 import io
 import base64
+import sys
+import os
+import numpy as np
 import pandas as pd
-from bokeh.charts import Histogram
-from bokeh.embed import components
-
-DIR_PATH =  os.getcwd()
-DATA_PATH = os.path.join(DIR_PATH + os.sep, "data")
-FRANCE_PATH = os.path.join(DATA_PATH + os.sep, "France")
-LYON_PATH = os.path.join(FRANCE_PATH + os.sep, "Lyon" + os.sep)
-PARIS_PATH = os.path.join(FRANCE_PATH + os.sep, "Paris" + os.sep)
-BDX_PATH = os.path.join(FRANCE_PATH + os.sep, "Bordeaux" + os.sep)
-
-
+ 
 def build_graph(x_coordinates, y_coordinates):
     img = io.BytesIO()
     plt.plot(x_coordinates, y_coordinates)
@@ -23,9 +16,20 @@ def build_graph(x_coordinates, y_coordinates):
     return 'data:image/png;base64,{}'.format(graph_url)
 
 
-def hist_paris_price(current_feature_name, bins):
-    paris_listings = pd.read_csv(PARIS_PATH+"clean_paris_listings.csv", low_memory=False)
-    p = Histogram(paris_listings, current_feature_name, title=current_feature_name, color='Species', bins=bins, legend='top_right', width=600, height=400)
-    p.xaxis.axis_label = current_feature_name
-    p.yaxis.axis_label = 'Count'
-    return p
+def build_hist_paris(price_paris):
+    img = io.BytesIO()
+    fig, ax = plt.subplots(figsize=(9, 5))
+    bins = np.arange(0,300,20)
+    xlabels = bins[1:].astype(str)
+    xlabels[-1] += '+'
+    N_labels = len(xlabels)
+    plt.xlim([0, 350])
+    plt.xticks(25 * np.arange(N_labels) + 12.5)
+    ax.set_xticklabels(xlabels)
+    plt.xlabel("Price per night ( $ )")
+    plt.hist(price_paris, color='green', bins = bins)
+    plt.savefig(img, format='png')
+    img.seek(0)
+    hist_url = base64.b64encode(img.getvalue()).decode()
+    plt.close()
+    return 'data:image/png;base64,{}'.format(hist_url)
