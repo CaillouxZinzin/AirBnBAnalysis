@@ -11,6 +11,10 @@ AirbnbAnalysis/data/France/Bordeaux/reviews.csv
 AirbnbAnalysis/data/France/Bordeaux/calendar.csv
 AirbnbAnalysis/data/France/Bordeaux/listings.csv
 
+AirbnbAnalysis/data/World/Berlin/listings.csv
+AirbnbAnalysis/data/World/Berlin/reviews.csv
+AirbnbAnalysis/data/World/Berlin/calendar.csv
+
 AirbnbAnalysis/.ipynb_checkpoints/
 
 .DS_Store
