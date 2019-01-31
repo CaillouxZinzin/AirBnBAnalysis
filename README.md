@@ -1,6 +1,10 @@
 # PythonForScience
 Courses on Python for science followed at UTC
 
+
+The datas where picked here : http://insideairbnb.com/get-the-data.html
+
+
 Our project is composed of 2 main parts :
     - Analysis with jupyter notebook
     - Presentation of the result with a flask application in python
