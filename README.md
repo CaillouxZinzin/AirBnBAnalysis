@@ -1,6 +1,4 @@
-# PythonForScience
-Courses on Python for science followed at UTC
-
+# AirBnBAnalysis
 
 The datas where picked here : http://insideairbnb.com/get-the-data.html
 
